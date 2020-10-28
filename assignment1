@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int valid (int year, int mon, int day) {
+	int is_valid=1;
+
+	if (mon < 1 || mon > 12){
+
+		is_valid = 0;
+	}	      
+
+	else if (mon == 4 || mon == 6 || mon == 9 || mon == 11){
+			if (day > 30){
+				is_valid = 0;
+			}
+	}
+	else if (mon == 2 && day >28){
+		is_valid = 0;
+	
+	}
+    else if(mon == 1 || mon== 3 || mon== 5 || mon ==7 || mon == 8 || mon == 10 || mon == 12){
+        if(day>31){
+        is_valid=0;
+        }
+    }
+if (is_valid){
+
+return 1;
+
+ 
+} else{
+     return 0;
+    }
+
+}
+int zeller(int year,int m,int q){
+    int j,k;
+    j = year/100;
+    k = year - j*100;
+    return  (q + (13 * (m + 1) / 5) + k + (k / 4) + (j / 4) + 5 * j) % 7;
+   
+}
+
+int main () {
+    int year, m, q, end, same=0;
+    printf ("Enter date [year month day]: ");
+    scanf ("%d %d %d", &year, &m, &q);
+    if (valid(year,m,q) == 0) {
+      printf ("Invalid date.\n");
+      return EXIT_FAILURE;
+    }
+    else{
+        printf ("Enter end year: ");
+      
+      
+      
+    scanf ("%d", &end);
+
+switch (zeller(year,m,q)){
+case 0:
+printf ("It's a Saturday.\n");
+break;
+case 1:
+printf ("It's a Sunday.\n");
+break;
+case 2:
+printf ("It's a Monday.\n");
+break;
+case 3:
+printf ("It's a Tuesday.\n");
+break;
+case 4:
+printf ("It's a Wednesday.\n");
+break;
+case 5:
+printf ("It's a Thursday.\n");
+break;
+case 6:
+printf ("It's a Friday.\n");
+break;
+}
+      
+    int i;
+     for(i=year+1;i<end+1;i++){
+     if(zeller(year,m,q)==zeller(i,m,q)){
+         same++;
+     }
+ 
+ }
+ 
+printf ("Same day-and-month on same weekday between %d and %d: %d\n",year+1, end, same);
+    
+}
+
+return EXIT_SUCCESS;
+
+}
