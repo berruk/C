@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+int point(int segment,char ring){
+	int point=segment;
+	if(ring == 'D'){
+		point = segment*2;
+
+	}
+	else if( ring == 'T'){
+		point = segment*3;
+	}
+	else if(ring == 'O'){
+		point = 25;
+	}
+	else if(ring == 'I'){
+		point = 50;
+	}
+	return point;
+}
+
+int score(int current,int segment,char ring){
+	int score=current;
+	score = current - point(segment,ring);
+
+	if(score == 0){
+	    if(ring == 'D'){
+	        return score;
+	    }
+	    else{
+	        score = current;
+	    }
+	}
+	return score;
+}
+
+int main(){
+	printf("Target:");
+	int target,segment;
+	char ring;
+	scanf("%d",&target);
+	int scoree = target;
+	while(ring != 'D'){
+	    printf("Throw:");
+		scanf("%d %c",&segment,&ring);
+		if(ring== 'D'){
+			scoree = target - segment*2; 
+		}
+		printf("Points: %d\n",scoree);
+	}
+	while(score>0){
+		printf("Throw:");
+		scanf("%d %c",&segment,&ring);
+
+		scoree = score(scoree,segment,ring);
+		printf("Points: %d\n",scoree);
+		if(scoree == 0){
+		    break;
+		}
+		}
+	}
+    
